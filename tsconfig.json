@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "rootDir": "./server",      // 👈 Change this to match your folder
+    "outDir": "./dist",         // 👈 Compiled JS will go here
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "client"                    // 👈 Exclude your frontend client directory
+  ]
+}

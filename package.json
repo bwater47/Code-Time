@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec tsx server/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.ts"
+    "dev": "nodemon --exec tsx server/server.ts && cd client && npm start",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",

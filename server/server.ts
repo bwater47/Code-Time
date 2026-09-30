@@ -1,28 +1,15 @@
+import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const clientPath = path.resolve(__dirname, '../client');
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
-// Middleware to parse JSON requests
+app.use(cors({ origin: CLIENT_ORIGIN }));
 app.use(express.json());
 
-// Serve the frontend entry page instead of a JSON placeholder
-app.get('/', (_req: Request, res: Response) => {
-    res.sendFile(path.join(clientPath, 'main.html'));
-});
-
-// Serve static frontend assets and support client-side routing
-app.use(express.static(clientPath));
-
-app.get(/^(?!\/api).*/, (_req: Request, res: Response) => {
-    res.sendFile(path.join(clientPath, 'main.html'));
-});
-
-// start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.get('/api/health', (_req: Request, res: Response) => {
+    res.json({ status: 'ok' });
 });
 
 app.use((_req: Request, res: Response) => {
@@ -32,4 +19,8 @@ app.use((_req: Request, res: Response) => {
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Internal Server Error' });
+});
+
+app.listen(PORT, () => {
+    console.log(`API server is running on port ${PORT}`);
 });
